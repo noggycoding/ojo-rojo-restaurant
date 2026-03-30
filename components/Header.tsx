@@ -63,12 +63,17 @@ export default function Header() {
         boxShadow: isScrolled ? "none" : "0 4px 6px -1px rgba(0,0,0,0.3)",
       }}
     >
-      <nav className="max-w-7xl mx-auto px-4 py-4 flex justify-center items-center relative">
+      <nav className="max-w-7xl mx-auto px-4 py-4 flex justify-center items-center">
+        {/* Botón hamburguesa centrado en móvil */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden absolute left-4 text-white p-2 relative"
+          className="md:hidden text-white p-2 rounded-lg"
+          style={{
+            background: isOpen ? "rgba(180,0,0,0.2)" : "transparent",
+            border: isOpen ? "1px solid rgba(220,0,0,0.4)" : "none",
+          }}
           aria-label="Toggle menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -76,12 +81,12 @@ export default function Header() {
           {/* Glow pulsante para indicar interacción */}
           {!isOpen && (
             <motion.div
-              className="absolute -inset-2 rounded-full pointer-events-none"
+              className="absolute -inset-2 rounded-lg pointer-events-none"
               animate={{ 
                 opacity: [0.5, 1, 0.5],
                 scale: [1, 1.2, 1]
               }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 2, repeat: Infinity as number, ease: "easeInOut" as const }}
               style={{
                 background: "radial-gradient(circle, rgba(255,60,60,0.6) 0%, transparent 70%)",
                 filter: "blur(10px)",
@@ -91,7 +96,8 @@ export default function Header() {
           )}
         </motion.button>
 
-        <div className="hidden md:flex relative">
+        {/* Menú desktop */}
+        <div className="hidden md:flex">
           <GradientMenu
             activeSection={activeSection}
             onSectionClick={scrollToSection}
